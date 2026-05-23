@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Space+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap");
+
+:root {
+  --font-display: "Bungee", system-ui;
+  --font-body: "Newsreader", serif;
+  --font-mono: "Space Mono", monospace;
+  --ink: #0a0a0a;
+  --cream: #f5f1e8;
+  --signal: #ff3d00;
+  --grass: #1a4d2e;
+  --gold: #d4a574;
+}
+
+html, body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-feature-settings: "ss01", "ss02";
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Field texture background */
+.bg-field {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(26, 77, 46, 0.03) 60px, rgba(26, 77, 46, 0.03) 120px),
+    radial-gradient(circle at 20% 30%, rgba(255, 61, 0, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(212, 165, 116, 0.06) 0%, transparent 50%);
+}
+
+.bg-grain {
+  position: relative;
+}
+.bg-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* Card with ticket-stub aesthetic */
+.ticket-card {
+  background: white;
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  position: relative;
+}
+
+.ticket-card-perforated {
+  background:
+    radial-gradient(circle at 0 50%, transparent 8px, white 8px) left center,
+    radial-gradient(circle at 100% 50%, transparent 8px, white 8px) right center;
+  background-size: 51% 100%;
+  background-repeat: no-repeat;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  padding: 0.875rem 1.5rem;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--signal);
+  transition: transform 0.15s, box-shadow 0.15s;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+.btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--signal);
+}
+.btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--signal);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--ink);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  transition: background 0.15s;
+}
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+/* Input fields */
+.input-field {
+  width: 100%;
+  background: white;
+  border: 2px solid var(--ink);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  outline: none;
+  transition: box-shadow 0.15s;
+}
+.input-field:focus {
+  box-shadow: 4px 4px 0 var(--signal);
+}
+
+.score-input {
+  width: 4rem;
+  height: 4rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  border: 2px solid var(--ink);
+  background: var(--cream);
+  outline: none;
+}
+.score-input:focus {
+  background: white;
+  box-shadow: 3px 3px 0 var(--signal);
+}
+
+/* Stage badge */
+.stage-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.625rem;
+  border: 1.5px solid var(--ink);
+  text-transform: uppercase;
+}
+
+/* Marquee tape stripe */
+.tape-stripe {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--ink),
+    var(--ink) 12px,
+    var(--signal) 12px,
+    var(--signal) 24px
+  );
+  height: 8px;
+}
+
+/* Trophy icon shimmer */
+@keyframes shimmer {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.trophy-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Stagger entrance */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.stagger > * {
+  opacity: 0;
+  animation: slideUp 0.5s forwards;
+}
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger > *:nth-child(6) { animation-delay: 0.3s; }
