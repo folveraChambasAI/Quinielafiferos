@@ -37,16 +37,13 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        // @ts-expect-error extending session
         token.isAdmin = user.isAdmin;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        // @ts-expect-error extending session
-        session.user.id = token.id;
-        // @ts-expect-error extending session
+        session.user.id = token.id!;
         session.user.isAdmin = token.isAdmin;
       }
       return session;
